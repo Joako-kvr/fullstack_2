@@ -1,30 +1,48 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import React, { useState } from 'react';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 
 
-function Navbar() {
+
+function NavbarHelioAndes() {
+  const [expanded, setExpanded] = useState(false);
+
+
+  const handleNavClick = () => setExpanded(false);
+
   return (
-  <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar
+      expand="lg"
+      fixed="top"
+      bg="light"
+      data-bs-theme="light"
+      expanded={expanded}
+      onToggle={setExpanded}
+      className="shadow-sm border-bottom"
+    >
       <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
+      
+       <Navbar.Brand href="#inicio" className="fw-bold d-flex align-items-center">
+  <img
+    src="/assets/images/logoAndes.png"
+    alt="HelioAndes Logo"
+    height="36"
+    className="me-2"
+  />
+  HelioAndes
+</Navbar.Brand>
+       
+        <Navbar.Toggle aria-controls="helioandes-navbar" />
+     
+        <Navbar.Collapse id="helioandes-navbar">
+          <Nav className="mx-auto gap-lg-3" onSelect={handleNavClick}>
+            <Nav.Link href="#inicio">Inicio</Nav.Link>
+            <Nav.Link href="#servicios">Servicios</Nav.Link>
+            <Nav.Link href="#soluciones">Soluciones</Nav.Link>
+            <Nav.Link href="#demo-calculadora">DEMO</Nav.Link>
+            <Nav.Link href="#planes">Planes</Nav.Link>
+            <Nav.Link href="#testimonios">Testimonios</Nav.Link>
+            <Nav.Link href="#faq">FAQ</Nav.Link>
+            <Nav.Link href="#contacto">Contacto</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -32,5 +50,4 @@ function Navbar() {
   );
 }
 
-
-export default Navbar;
+export default NavbarHelioAndes;

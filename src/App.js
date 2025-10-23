@@ -1,7 +1,4 @@
-
-import logo from './logo.svg';
 import './App.css';
-import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Servicios from './components/Servicios';
 import Soluciones from './components/Soluciones';
@@ -11,14 +8,15 @@ import Testimonios from './components/Testimonios';
 import FAQ from './components/FAQ';
 import Contacto from './components/Contacto';
 import Footer from './components/Footer';
-import React from 'react';
+import NavbarHelioAndes from './components/Navbar';
+
 
 
 function App() {
   return (
     <div className="App">
       <div>
-          <Navbar/>
+          <NavbarHelioAndes/>
           <Hero/>
           <Servicios/>
           <Soluciones/>
