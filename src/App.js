@@ -14,7 +14,7 @@ import NavbarHelioAndes from './components/Navbar';
 
 function App() {
   return (
-    <div className="App">
+    <div className="pt-5 main-bg">
       <div>
           <NavbarHelioAndes/>
           <Hero/>

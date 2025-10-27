@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useState } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
-
 
 
 function NavbarHelioAndes() {
   const [expanded, setExpanded] = useState(false);
-
 
   const handleNavClick = () => setExpanded(false);
 
