@@ -2,7 +2,7 @@ import './App.css';
 import Hero from './components/Hero';
 import Servicios from './components/Servicios';
 import Soluciones from './components/Soluciones';
-import CalculadoraIntegral from './components/CalculadoraIntegral';
+import CalculadoraPrincipal from './components/CalculadoraIntegral';
 import Planes from './components/Planes';
 import Testimonios from './components/Testimonios';
 import FAQ from './components/FAQ';
@@ -20,7 +20,7 @@ function App() {
           <Hero/>
           <Servicios/>
           <Soluciones/>
-          <CalculadoraIntegral/>
+          <CalculadoraPrincipal/>
           <Planes/>
           <Testimonios/>
           <FAQ/>
