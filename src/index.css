@@ -39,4 +39,15 @@ code {
 .card {
   border-radius: 16px !important;
 }
+.badge-soft {
+  display: inline-block;
+  padding: 0.5rem 0.9rem;
+  background-color: #E2F4F4;
+  color: #1B4B5A;
+  border: 1px solid #C2E7E7;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
 
