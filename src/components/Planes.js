@@ -14,8 +14,8 @@ function Planes() {
     return (
         <section id="planes" className="py-5">
             <Container>
-                             <Row className="align-items-center mb-4">
-                    
+                <Row className="align-items-center mb-4">
+
                     <Col xs={12} md={6} className='text-start'>
                         <Col xs={12} md={6}>
                         </Col>
@@ -40,7 +40,7 @@ function Planes() {
                                 </Card.Body>
                             </Card>
                         </Col>
-                        
+
                     ))}
                 </Row>
             </Container>

@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 
 function Hero() {
     return (
-        <section className="py-5 pt-5 bg-hero">
+        <section className="py-5 pt-5 bg-hero" id="hero">
             <Container>
                 <Row className="align-items-center gy-4">
                     <Col xs={12} md={6} className='text-start'>

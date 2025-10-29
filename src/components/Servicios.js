@@ -9,7 +9,7 @@ import { faMagnifyingGlass, faScrewdriverWrench, faCheck, faToolbox } from '@for
 
 const items = [
     { title: 'Estudio energético', text: 'Análisis de consumo y propuesta ajustada a tu perfil.', icon: <FontAwesomeIcon icon={faMagnifyingGlass} size="2x" /> },
-    { title: 'Instalación certificada', text: 'Ejecutada por personal acreditado y normativa vigente.', icon: <FontAwesomeIcon icon={faScrewdriverWrench} size="2x" /> },
+    { title: 'Instalación certificada SEC', text: 'Ejecutada por personal acreditado y normativa vigente.', icon: <FontAwesomeIcon icon={faScrewdriverWrench} size="2x" /> },
     { title: 'Monitoreo', text: 'Seguimiento de rendimiento y alertas preventivas.', icon: <FontAwesomeIcon icon={faCheck} size="2x" /> },
     { title: 'Mantención', text: 'Planes periódicos para extender la vida del sistema.', icon: <FontAwesomeIcon icon={faToolbox} size="2x" /> },
 ];

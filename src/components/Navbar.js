@@ -34,7 +34,7 @@ function NavbarHelioAndes() {
      
         <Navbar.Collapse id="helioandes-navbar">
           <Nav className="mx-auto gap-lg-3" onSelect={handleNavClick}>
-            <Nav.Link href="#inicio">Inicio</Nav.Link>
+            <Nav.Link href="#hero">Inicio</Nav.Link>
             <Nav.Link href="#servicios">Servicios</Nav.Link>
             <Nav.Link href="#soluciones">Soluciones</Nav.Link>
             <Nav.Link href="#demo-calculadora">DEMO</Nav.Link>

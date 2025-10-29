@@ -68,7 +68,7 @@ function CalculadoraPrincipal() {
     const total = totalAnteFinan - montoPie + montoInteresTotal
 
     return (
-        <div className='row justify-content-center'>
+        <div className='row justify-content-center' id="demo-calculadora">
             <div className='row justify-content-center'>
                 <div className='col-lg-10 text-left'>
                     <h2>DEMO calculadora</h2>
@@ -180,7 +180,7 @@ function CalculadoraPrincipal() {
                             </select>
                         </div>
                         <div className='col-lg-6'>
-                            <label className='form-label' htmlFor='subsidio'>Subsidio</label>
+                            <label className='form-label' htmlFor='subsidio'>Subsidio Referencial</label>
                             <select className='form-select' id='subsidio' name='subsidio' value={subsidio} onChange={(e) => setSubsidio(e.target.value)}>
                                 <option>Seleccione Opción</option>
                                 <option value={1}>Sin subsidio → 0%</option>
