@@ -6,6 +6,8 @@ import Table from 'react-bootstrap/Table';
 
 function CalculadoraPrincipal() {
 
+    const CLP = (n) => `$ ${Math.round(n).toLocaleString("es-CL")}`;
+
     const [potenciaPanel, setPotenciaPanel] = useState(0);
     const [cantidadPaneles, setCantidadPaneles] = useState(0);
     const [inversorPrecio, setInversorPrecio] = useState(0);
@@ -68,31 +70,33 @@ function CalculadoraPrincipal() {
     return (
         <div className='row justify-content-center'>
             <div className='row justify-content-center'>
-                <div className='col-lg-6 text-left'>
+                <div className='col-lg-10 text-left'>
                     <h2>DEMO calculadora</h2>
                 </div>
             </div>
 
-            <div className='row mt-3 justify-content-center'>
-                <div className='col-lg-4 bg-white p-3 rounded'>
+            <div className='col-lg-5'>
+
+            <div className='justify-content-center'>
+                <div className='bg-white p-3 rounded'>
                     <h4>Formulario</h4>
 
                     {/* primera row */}
                     <div className="row">
 
                         <div className='col-lg-6'>
-                            <label className='form-label' htmlFor='potenciaPanel'>Potencia del panel (W)</label>
+                            <label className='form-label ' htmlFor='potenciaPanel'>Potencia del panel (W)</label>
                             <input id='potenciaPanel' name='potenciaPanel' placeholder='1000000' type='number' className='form-control' value={potenciaPanel} onChange={(e) => setPotenciaPanel(e.target.value)}></input>
                         </div>
 
                         <div className='col-lg-6'>
                             <label className='form-label' htmlFor='cantidadPaneles'>Cantidad Paneles</label>
-                            <input id='cantidadPaneles' name='cantidadPaneles' placeholder='1000000' type='number' className='form-control' value={cantidadPaneles} onChange={(e) => setCantidadPaneles(e.target.value)}></input>
+                            <input id='cantidadPaneles' name='cantidadPaneles' placeholder='10' type='number' className='form-control' value={cantidadPaneles} onChange={(e) => setCantidadPaneles(e.target.value)}></input>
 
                         </div>
                     </div>
                     {/* segunda row */}
-                    <div className="row">
+                    <div className="row mt-3">
 
                         <div className='col-lg-6'>
                             <label className='form-label' htmlFor='inversorPrecio'>Inversor (precio)</label>
@@ -107,11 +111,11 @@ function CalculadoraPrincipal() {
                     </div>
 
                     {/* tercera row */}
-                    <div className="row">
+                    <div className="row mt-3">
 
                         <div className='col-lg-6'>
                             <label className='form-label' htmlFor='cantidadBaterias'>Cantidad Baterías</label>
-                            <input id='cantidadBaterias' name='cantidadBaterias' placeholder='1000000' type='number' className='form-control' value={cantidadBaterias} onChange={(e) => setCantidadBaterias(e.target.value)}></input>
+                            <input id='cantidadBaterias' name='cantidadBaterias' placeholder='10' type='number' className='form-control' value={cantidadBaterias} onChange={(e) => setCantidadBaterias(e.target.value)}></input>
                         </div>
 
                         <div className='col-lg-6'>
@@ -122,7 +126,7 @@ function CalculadoraPrincipal() {
                     </div>
 
                     {/* cuarta row */}
-                    <div className="row">
+                    <div className="row mt-3">
 
                         <div className='col-lg-6'>
                             <label className='form-label' htmlFor='instalacionBase'>Instalación Base</label>
@@ -131,13 +135,13 @@ function CalculadoraPrincipal() {
 
                         <div className='col-lg-6'>
                             <label className='form-label' htmlFor='pesoEnvio'>Peso envío (kg)</label>
-                            <input id='pesoEnvio' name='pesoEnvio' placeholder='1000000' type='number' className='form-control' value={pesoEnvio} onChange={(e) => setPesoEnvio(e.target.value)}></input>
+                            <input id='pesoEnvio' name='pesoEnvio' placeholder='1000' type='number' className='form-control' value={pesoEnvio} onChange={(e) => setPesoEnvio(e.target.value)}></input>
 
                         </div>
                     </div>
 
                     {/* quinta  row con despliegue*/}
-                    <div className="row">
+                    <div className="row mt-3">
 
                         <div className='col-lg-6'>
                             <label className='form-label' htmlFor='tipoTecho'>Tipo de techo</label>
@@ -163,7 +167,7 @@ function CalculadoraPrincipal() {
                     </div>
 
                     {/* sexta  row con despliegue*/}
-                    <div className="row">
+                    <div className="row mt-3">
 
                         <div className='col-lg-6'>
                             <label className='form-label' htmlFor='complejidadInstalacion'>Complejidad instalación</label>
@@ -188,7 +192,7 @@ function CalculadoraPrincipal() {
                     </div>
 
                     {/* septima  row con despliegue*/}
-                    <div className="row">
+                    <div className="row mt-3">
 
                         <div className='col-lg-6'>
                             <label className='form-label' htmlFor='metodoEnvio'>Método de envío</label>
@@ -212,7 +216,7 @@ function CalculadoraPrincipal() {
                     </div>
 
                     {/* octava  row con despliegue*/}
-                    <div className="row">
+                    <div className="row mt-3">
 
                         <div className='col-lg-6'>
                             <label className='form-label' htmlFor='planPago'>Plan de Pago</label>
@@ -236,11 +240,11 @@ function CalculadoraPrincipal() {
                     </div>
 
                     {/* novena  row con despliegue*/}
-                    <div className="row">
+                    <div className="row mt-3">
                         <div className='col-lg-6'>
                             <label className='form-label' htmlFor='valorPie'>Valor de pie</label>
                             <input id='valorPie' name='valorPie' placeholder='1000000' type='number' className='form-control' value={valorPie} onChange={(e) => setValorPie(e.target.value)}></input>
-                            <p>Si es porcentaje, 10 = 10%</p>
+                            <p className="text-muted small">Si es porcentaje, 10 = 10%</p>
                         </div>
 
 
@@ -281,8 +285,11 @@ function CalculadoraPrincipal() {
                     </div>
 
                 </div>
+                        </div>
+                        </div>
+                <div className='col-lg-5'>
 
-                <div className='col-lg-4 bg-white p-3 rounded'>
+                <div className='bg-white p-3 rounded'>
                     <h4>Resumen</h4>
                     <Table striped bordered hover>
 
@@ -358,8 +365,9 @@ function CalculadoraPrincipal() {
                         </tbody>
                     </Table>
                 </div>
+                </div>
 
-            </div>
+            
         </div>
 
     );
