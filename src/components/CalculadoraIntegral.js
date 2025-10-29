@@ -13,25 +13,58 @@ function CalculadoraPrincipal() {
     const [estrucCableado, setEstrucCableado] = useState(0);
     const [instalacionBase, setInstalacionBase] = useState(0);
     const [pesoEnvio, setPesoEnvio] = useState(0);
+
     const [tipoTecho, setTipoTecho] = useState("");
+    const porcentajeTipoTecho = { 1: 0.05, 2: 0.02, 3: 0.07 };
+    const valorTipoTecho = porcentajeTipoTecho[Number(tipoTecho)] || 0;
+
     const [region, setRegion] = useState("");
+    const porcentajeRegion = { 1: 5000, 2: 9000, 3: 10000, 4: 15000 };
+    const valorRegion = porcentajeRegion[Number(region)] || 0;
+
     const [complejidadInstalacion, setComplejidadInstalacion] = useState("");
+    const porcentajeComplejidadInstalacion = { 1: 0, 2: 0.08, 3: 0.15 };
+    const valorComplejidadInstalacion = porcentajeComplejidadInstalacion[Number(complejidadInstalacion)] || 0;
+
     const [subsidio, setSubsidio] = useState("");
+    const porcentajeSubsidio = { 1: 0, 2: 0.08, 3: 0.05 };
+    const valorSubsidio = porcentajeSubsidio[Number(subsidio)] || 0;
+
     const [metodoEnvio, setMetodoEnvio] = useState("");
+    const porcentajeMetodoEnvio = { 1: 1, 2: 1.2 };
+    const valorMetodoEnvio = porcentajeMetodoEnvio[Number(metodoEnvio)] || 0;
+
     const [garantia, setGarantia] = useState("");
+    const porcentajeGarantia = { 1: 0.02, 2: 0.04, 3: 0.06 };
+    const valorGarantia = porcentajeGarantia[Number(garantia)] || 0;
+
     const [planPago, setPlanPago] = useState("");
+    const porcentajePlanPago = { 1: 0, 2: 0.012, 3: 0.011, 4: 0.01 };
+    const valorPlanPago = porcentajePlanPago[Number(planPago)] || 0;
+    const cantidadPlanPago = { 1: 1, 2: 6, 3: 12, 4: 24 };
+    const valorCantidadPlanPago = cantidadPlanPago[Number(planPago)] || 0;
+
     const [tipoPie, setTipoPie] = useState("");
-        const [valorPie, setValorPie] = useState(0);
+    const cantidadTipoPie = { 1: 1, 2: 6 };
+    const valorTipoPie = cantidadTipoPie[Number(tipoPie)] || 0;
 
+    const [valorPie, setValorPie] = useState(0);
 
+    const valorPanelSolar = parseInt(2500000)
 
-    const [cantidadModulosRam, setCantidadModulosRam] = useState(0);
-    const [descuento, setDescuento] = useState(0);
-    const [precioCpu, setPrecioCpu] = useState(0);
-    const [precioGpu, setPrecioGpu] = useState(0);
-    const subTotal = parseInt(precioCpu) + parseInt(precioGpu) + parseInt(cantidadModulosRam);
-    const totalIva = parseInt(subTotal) * 0.19;
-    const total = parseInt(subTotal) + parseInt(totalIva) - parseInt(descuento);
+    const potenciaEstimada = (potenciaPanel * cantidadPaneles) / 1000;
+    const subtotalEquipos = ((parseInt(valorPanelSolar) * parseInt(cantidadPaneles)) + parseInt(inversorPrecio) + (parseInt(bateriaPrecio) * parseInt(cantidadBaterias)) + parseInt(estrucCableado))
+    const recargoTecho = subtotalEquipos * valorTipoTecho
+    const montoSubsidio = subtotalEquipos * valorSubsidio
+    const instalacionFinal = (parseInt(instalacionBase) + (subtotalEquipos*valorComplejidadInstalacion))
+    const montoIva = (subtotalEquipos + recargoTecho - montoSubsidio + instalacionFinal) * 0.19
+    const montoEnvio = (valorRegion + parseInt(pesoEnvio*700))*valorMetodoEnvio
+    const montoGarantia = subtotalEquipos * valorGarantia
+    const totalAnteFinan = montoIva + montoEnvio + montoGarantia    
+    const montoPie = 0  
+    const montoInteresTotal = (totalAnteFinan - montoPie)*valorPlanPago
+    const montoCuota = montoInteresTotal/valorCantidadPlanPago
+    const total = totalAnteFinan + montoInteresTotal
 
     return (
         <div className='row justify-content-center'>
@@ -111,16 +144,20 @@ function CalculadoraPrincipal() {
                             <label className='form-label' htmlFor='tipoTecho'>Tipo de techo</label>
                             <select className='form-select' id='tipoTecho' name='tipoTecho' value={tipoTecho} onChange={(e) => setTipoTecho(e.target.value)}>
                                 <option>Seleccione Opción</option>
-                                <option value={1}>Con Garantía</option>
-                                <option value={2}>Sin Garantía</option>
+                                <option value={1}>Teja/Asfalto → recargo +5%</option>
+                                <option value={2}>Zinc/Planchas → recargo +2%</option>
+                                <option value={3}>Hormigón → recargo +7%</option>
                             </select>
                         </div>
                         <div className='col-lg-6'>
-                            <label className='form-label' htmlFor='region'>Región</label>
+                            <label className='form-label' htmlFor='region'>Región (para envío)</label>
                             <select className='form-select' id='region' name='region' value={region} onChange={(e) => setRegion(e.target.value)}>
                                 <option>Seleccione Opción</option>
-                                <option value={1}>Con Garantía</option>
-                                <option value={2}>Sin Garantía</option>
+                                <option value={1}>RM: base $5.000</option>
+                                <option value={2}>Norte: base $9.000</option>
+                                <option value={3}>Sur: base $10.000
+                                </option>
+                                <option value={4}>Austral: base $15.000</option>
                             </select>
                         </div>
 
@@ -133,16 +170,19 @@ function CalculadoraPrincipal() {
                             <label className='form-label' htmlFor='complejidadInstalacion'>Complejidad instalación</label>
                             <select className='form-select' id='complejidadInstalacion' name='complejidadInstalacion' value={complejidadInstalacion} onChange={(e) => setComplejidadInstalacion(e.target.value)}>
                                 <option>Seleccione Opción</option>
-                                <option value={1}>Con Garantía</option>
-                                <option value={2}>Sin Garantía</option>
+                                <option value={1}>Baja → 0% adicional
+                                </option>
+                                <option value={2}>Media → +8% sobre instalación base</option>
+                                <option value={3}>Alta → +15% sobre instalación base</option>
                             </select>
                         </div>
                         <div className='col-lg-6'>
                             <label className='form-label' htmlFor='subsidio'>Subsidio</label>
                             <select className='form-select' id='subsidio' name='subsidio' value={subsidio} onChange={(e) => setSubsidio(e.target.value)}>
                                 <option>Seleccione Opción</option>
-                                <option value={1}>Con Garantía</option>
-                                <option value={2}>Sin Garantía</option>
+                                <option value={1}>Sin subsidio → 0%</option>
+                                <option value={2}>Residencial → −8% sobre subtotal equipos</option>
+                                <option value={3}>Pyme → −5% sobre subtotal equipos</option>
                             </select>
                         </div>
 
@@ -155,16 +195,18 @@ function CalculadoraPrincipal() {
                             <label className='form-label' htmlFor='metodoEnvio'>Método de envío</label>
                             <select className='form-select' id='metodoEnvio' name='metodoEnvio' value={metodoEnvio} onChange={(e) => setMetodoEnvio(e.target.value)}>
                                 <option>Seleccione Opción</option>
-                                <option value={1}>Con Garantía</option>
-                                <option value={2}>Sin Garantía</option>
+                                <option value={1}>Estándar → 0%</option>
+                                <option value={2}>Exprés → 20%</option>
                             </select>
                         </div>
                         <div className='col-lg-6'>
                             <label className='form-label' htmlFor='garantia'>Garantía</label>
                             <select className='form-select' id='garantia' name='garantia' value={garantia} onChange={(e) => setGarantia(e.target.value)}>
                                 <option>Seleccione Opción</option>
-                                <option value={1}>Con Garantía</option>
-                                <option value={2}>Sin Garantía</option>
+                                <option value={1}>12 meses → +2% subtotal equipos</option>
+                                <option value={2}>24 meses → +4% subtotal equipos</option>
+                                <option value={3}>36 meses → +6% subtotal equipos</option>
+
                             </select>
                         </div>
 
@@ -177,16 +219,18 @@ function CalculadoraPrincipal() {
                             <label className='form-label' htmlFor='planPago'>Plan de Pago</label>
                             <select className='form-select' id='planPago' name='planPago' value={planPago} onChange={(e) => setPlanPago(e.target.value)}>
                                 <option>Seleccione Opción</option>
-                                <option value={1}>Con Garantía</option>
-                                <option value={2}>Sin Garantía</option>
+                                <option value={1}>Contado → tasa 0, cuotas 1</option>
+                                <option value={2}>6 cuotas → 1.2% mensual</option>
+                                <option value={3}>12 cuotas → 1.1% mensua</option>
+                                <option value={4}>24 cuotas → 1.0% mensual</option>
                             </select>
                         </div>
                         <div className='col-lg-6'>
                             <label className='form-label' htmlFor='tipoPie'>Tipo de pie</label>
                             <select className='form-select' id='tipoPie' name='tipoPie' value={tipoPie} onChange={(e) => setTipoPie(e.target.value)}>
                                 <option>Seleccione Opción</option>
-                                <option value={1}>Con Garantía</option>
-                                <option value={2}>Sin Garantía</option>
+                                <option value={1}>Porcentaje</option>
+                                <option value={2}>Monto fijo</option>
                             </select>
                         </div>
 
@@ -197,6 +241,7 @@ function CalculadoraPrincipal() {
                         <div className='col-lg-6'>
                             <label className='form-label' htmlFor='valorPie'>Valor de pie</label>
                             <input id='valorPie' name='valorPie' placeholder='1000000' type='number' className='form-control' value={valorPie} onChange={(e) => setValorPie(e.target.value)}></input>
+                            <p>Si es porcentaje, 10 = 10%</p>
                         </div>
 
 
@@ -207,50 +252,110 @@ function CalculadoraPrincipal() {
 
 
                     <div className='form-group mt-3'>
-                        <a className='btn btn-warning' onClick={(e) => {
+                        <a className='btn btn-outline-dark' onClick={(e) => {
 
-                            setPrecioCpu(0);
-                            setPrecioGpu(0);
-                            setCantidadModulosRam(0);
+                            setPotenciaPanel(0);
+                            setCantidadPaneles(0);
+                            setInversorPrecio(0);
+                            setBateriaPrecio(0);
+                            setCantidadBaterias(0);
+                            setEstrucCableado(0);
+                            setInstalacionBase(0);
+                            setPesoEnvio(0);
+
+                            setTipoTecho("");
+                            setRegion("");
+                            setComplejidadInstalacion("");
                             setSubsidio("");
-                            setDescuento(0);
-                        }} ><i class="fa-solid fa-poo"></i> Limpiar </a>
+                            setMetodoEnvio("");
+                            setGarantia("");
+                            setPlanPago("");
+                            setTipoPie("");
+
+                            setValorPie(0);
+                        }} ><i class="fa-solid fa-poo"></i> Reiniciar </a>
+
+                        <a className='btn btn-outline-dark ms-3' onClick={(e) => {
+
+
+                        }} ><i class="fa-solid fa-poo"></i> Copiar Resumen </a>
                     </div>
 
                 </div>
 
                 <div className='col-lg-4 bg-white p-3 rounded'>
+                    <h4>Resumen</h4>
                     <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Concepto</th>
-                                <th>Valor</th>
-                            </tr>
-                        </thead>
+
                         <tbody>
                             <tr>
-                                <td>1</td>
-                                <td>Subtotal</td>
-                                <td>$ {subTotal.toLocaleString()}</td>
+
+                                <td>Potencia Estimada (kW)</td>
+                                <td>{potenciaEstimada.toLocaleString()}</td>
                             </tr>
                             <tr>
-                                <td>2</td>
-                                <td>(-) IVA (19%)</td>
-                                <td>$ {totalIva.toLocaleString()}</td>
+
+                                <td>Subtotal Equipos</td>
+                                <td>$ {subtotalEquipos.toLocaleString()}</td>
                             </tr>
                             <tr>
-                                <td>3</td>
-                                <td>(-) Descuento </td>
-                                <td>$ {descuento.toLocaleString()}</td>
+
+                                <td>Recargo techo</td>
+                                <td>$ {recargoTecho.toLocaleString()}</td>
                             </tr>
                             <tr>
-                                <td>4</td>
-                                <td>Total</td>
+
+                                <td>Subsidio</td>
+                                <td>$ {montoSubsidio.toLocaleString()}</td>
+                            </tr>
+
+                            <tr>
+
+                                <td>Instalación final</td>
+                                <td>$ {instalacionFinal.toLocaleString()}</td>
+                            </tr>
+                            <tr>
+
+                                <td>IVA 19%</td>
+                                <td>$ {montoIva.toLocaleString()}</td>
+                            </tr>
+                            <tr>
+
+                                <td>Envío</td>
+                                <td>$ {montoEnvio.toLocaleString()}</td>
+                            </tr>
+                            <tr>
+
+                                <td>Garantía</td>
+                                <td>$ {montoGarantia.toLocaleString()}</td>
+                            </tr>
+                            <tr>
+
+                                <td>Total antes de financiar</td>
+                                <td>$ {totalAnteFinan.toLocaleString()}</td>
+                            </tr>
+                            <tr>
+
+                                <td>Pie</td>
+                                <td>$ {montoPie.toLocaleString()}</td>
+
+                            </tr>
+                            <tr>
+
+                                <td>Interés total</td>
+                                <td>$ {montoInteresTotal.toLocaleString()}</td>
+                            </tr>
+                            <tr>
+
+                                <td>Cuota</td>
+                                <td>$ {montoCuota.toLocaleString()}</td>
+                            </tr>
+
+                            <tr>
+
+                                <td>Total final</td>
                                 <td>$ {total.toLocaleString()}</td>
                             </tr>
-
-
                         </tbody>
                     </Table>
                 </div>

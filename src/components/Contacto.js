@@ -24,8 +24,7 @@ function Contacto() {
             <Container>
                    <Row className="align-items-center mb-4">
                     <Col xs={12} md={6} className='text-start'>
-                        <Col xs={12} md={6}>
-                        </Col>
+
                         <h2 className="section-title m-0">Contacto</h2>
                     </Col>
                     <Col md={6} className="text-md-end text-secondary">
