@@ -277,12 +277,30 @@ function CalculadoraPrincipal() {
                         <div className="row mt-3">
                             <div className='col-lg-6'>
                                 <label className='form-label' htmlFor='valorPie'>Valor de pie</label>
-                                <input id='valorPie' name='valorPie' placeholder='1000000' type='number' className='form-control' value={valorPie} onChange={(e) => setValorPie(e.target.value)}></input>
+                                <input id='valorPie' name='valorPie' placeholder='1000000' type='number' className='form-control' value={valorPie} onChange={(e) => {
+                                    const nuevoValor = Number(e.target.value);
+                                    if (tipoPie == 1) {
+                                        if (nuevoValor > 100) {
+                                            setValorPie(100);
+                                        } else {
+                                            setValorPie(nuevoValor);
+                                        }
+                                    } else {
+                                        if (nuevoValor > totalAnteFinan) {
+                                            setValorPie(totalAnteFinan);
+                                        } else {
+                                            setValorPie(nuevoValor);
+                                        }
+                                    }
+                                }}>
+
+                                </input>
                                 <p className="text-muted small">Si es porcentaje, 10 = 10%</p>
                             </div>
 
 
                         </div>
+
 
 
 
