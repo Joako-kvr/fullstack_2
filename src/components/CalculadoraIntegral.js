@@ -9,7 +9,7 @@ function CalculadoraPrincipal() {
     const CLP = (n) => `$ ${Math.round(n).toLocaleString("es-CL")}`;
 
     const [potenciaPanel, setPotenciaPanel] = useState(0);
-    const [cantidadPaneles, setCantidadPaneles] = useState(0);
+    const [cantidadPaneles, setCantidadPaneles] = useState(1);
     const [inversorPrecio, setInversorPrecio] = useState(0);
     const [bateriaPrecio, setBateriaPrecio] = useState(0);
     const [cantidadBaterias, setCantidadBaterias] = useState(0);
@@ -53,19 +53,19 @@ function CalculadoraPrincipal() {
 
     const valorPanelSolar = parseInt(2500000)
 
-    const potenciaEstimada = (potenciaPanel * cantidadPaneles) / 1000;
-    const subtotalEquipos = ((parseInt(valorPanelSolar) * parseInt(cantidadPaneles)) + parseInt(inversorPrecio) + (parseInt(bateriaPrecio) * parseInt(cantidadBaterias)) + parseInt(estrucCableado))
-    const recargoTecho = subtotalEquipos * valorTipoTecho
-    const montoSubsidio = subtotalEquipos * valorSubsidio
-    const instalacionFinal = (parseInt(instalacionBase) + (subtotalEquipos * valorComplejidadInstalacion))
-    const montoIva = (subtotalEquipos + recargoTecho - montoSubsidio + instalacionFinal) * 0.19
-    const montoEnvio = (valorRegion + parseInt(pesoEnvio * 700)) * valorMetodoEnvio
-    const montoGarantia = subtotalEquipos * valorGarantia
-    const totalAnteFinan = (subtotalEquipos + recargoTecho - montoSubsidio + instalacionFinal) + montoIva + montoEnvio + montoGarantia
+    const potenciaEstimada = cantidadPaneles>0 ? (potenciaPanel * cantidadPaneles) / 1000 : 0;
+    const subtotalEquipos = cantidadPaneles>0  ? ((parseInt(valorPanelSolar) * parseInt(cantidadPaneles)) + parseInt(inversorPrecio) + (parseInt(bateriaPrecio) * parseInt(cantidadBaterias)) + parseInt(estrucCableado)) : 0;
+    const recargoTecho = cantidadPaneles>0  ? subtotalEquipos * valorTipoTecho : 0;
+    const montoSubsidio = cantidadPaneles>0  ? subtotalEquipos * valorSubsidio :0;
+    const instalacionFinal = cantidadPaneles>0  ? (parseInt(instalacionBase) + (subtotalEquipos * valorComplejidadInstalacion)) : 0;
+    const montoIva = cantidadPaneles>0  ? (subtotalEquipos + recargoTecho - montoSubsidio + instalacionFinal) * 0.19 : 0;
+    const montoEnvio = cantidadPaneles>0  ? (valorRegion + parseInt(pesoEnvio * 700)) * valorMetodoEnvio : 0;
+    const montoGarantia = cantidadPaneles>0  ? subtotalEquipos * valorGarantia : 0;
+    const totalAnteFinan = cantidadPaneles>0  ? (subtotalEquipos + recargoTecho - montoSubsidio + instalacionFinal) + montoIva + montoEnvio + montoGarantia : 0;
     const montoPie = tipoPie == 1 ? totalAnteFinan * (valorPie / 100) : tipoPie == 2 ? valorPie : 0;
-    const montoInteresTotal = (totalAnteFinan - montoPie) * valorPlanPago
+    const montoInteresTotal = cantidadPaneles>0  ? (totalAnteFinan - montoPie) * valorPlanPago : 0;
     const montoCuota = valorCantidadPlanPago > 0 ? Math.round((montoInteresTotal + (totalAnteFinan - montoPie)) / valorCantidadPlanPago) : 0;
-    const total = totalAnteFinan - montoPie + montoInteresTotal
+    const total = cantidadPaneles > 0  ? totalAnteFinan - montoPie + montoInteresTotal : 0;
 
     const buildResumen = () => {
         const lineas = [
@@ -120,12 +120,12 @@ function CalculadoraPrincipal() {
 
                             <div className='col-lg-6'>
                                 <label className='form-label ' htmlFor='potenciaPanel'>Potencia del panel (W)</label>
-                                <input id='potenciaPanel' name='potenciaPanel' placeholder='1000000' type='number' className='form-control' value={potenciaPanel} onChange={(e) => setPotenciaPanel(e.target.value)}></input>
+                                <input id='potenciaPanel' name='potenciaPanel' placeholder='1000000' type='number' className='form-control' value={potenciaPanel} onChange={(e) => setPotenciaPanel(e.target.value)} onFocus={() => setPotenciaPanel("")}></input>
                             </div>
 
                             <div className='col-lg-6'>
                                 <label className='form-label' htmlFor='cantidadPaneles'>Cantidad Paneles</label>
-                                <input id='cantidadPaneles' name='cantidadPaneles' placeholder='10' type='number' className='form-control' value={cantidadPaneles} onChange={(e) => setCantidadPaneles(e.target.value)}></input>
+                                <input id='cantidadPaneles' name='cantidadPaneles' placeholder='10' type='number' className='form-control' value={cantidadPaneles} onChange={(e) => setCantidadPaneles(e.target.value)} onFocus={() => setCantidadPaneles("")}></input>
 
                             </div>
                         </div>
@@ -134,12 +134,12 @@ function CalculadoraPrincipal() {
 
                             <div className='col-lg-6'>
                                 <label className='form-label' htmlFor='inversorPrecio'>Inversor (precio)</label>
-                                <input id='inversorPrecio' name='inversorPrecio' placeholder='1000000' type='number' className='form-control' value={inversorPrecio} onChange={(e) => setInversorPrecio(e.target.value)}></input>
+                                <input id='inversorPrecio' name='inversorPrecio' placeholder='1000000' type='number' className='form-control' value={inversorPrecio} onChange={(e) => setInversorPrecio(e.target.value)} onFocus={() => setInversorPrecio("")}></input>
                             </div>
 
                             <div className='col-lg-6'>
                                 <label className='form-label' htmlFor='bateriaPrecio'>Batería (precio unidad)</label>
-                                <input id='bateriaPrecio' name='bateriaPrecio' placeholder='1000000' type='number' className='form-control' value={bateriaPrecio} onChange={(e) => setBateriaPrecio(e.target.value)}></input>
+                                <input id='bateriaPrecio' name='bateriaPrecio' placeholder='1000000' type='number' className='form-control' value={bateriaPrecio} onChange={(e) => setBateriaPrecio(e.target.value)} onFocus={() => setBateriaPrecio("")}></input>
 
                             </div>
                         </div>
@@ -149,12 +149,12 @@ function CalculadoraPrincipal() {
 
                             <div className='col-lg-6'>
                                 <label className='form-label' htmlFor='cantidadBaterias'>Cantidad Baterías</label>
-                                <input id='cantidadBaterias' name='cantidadBaterias' placeholder='10' type='number' className='form-control' value={cantidadBaterias} onChange={(e) => setCantidadBaterias(e.target.value)}></input>
+                                <input id='cantidadBaterias' name='cantidadBaterias' placeholder='10' type='number' className='form-control' value={cantidadBaterias} onChange={(e) => setCantidadBaterias(e.target.value)} onFocus={() => setCantidadBaterias("")}></input>
                             </div>
 
                             <div className='col-lg-6'>
                                 <label className='form-label' htmlFor='estrucCableado'>Estruc./cableado</label>
-                                <input id='estrucCableado' name='estrucCableado' placeholder='1000000' type='number' className='form-control' value={estrucCableado} onChange={(e) => setEstrucCableado(e.target.value)}></input>
+                                <input id='estrucCableado' name='estrucCableado' placeholder='1000000' type='number' className='form-control' value={estrucCableado} onChange={(e) => setEstrucCableado(e.target.value)} onFocus={() => setEstrucCableado("")}></input>
 
                             </div>
                         </div>
@@ -164,12 +164,12 @@ function CalculadoraPrincipal() {
 
                             <div className='col-lg-6'>
                                 <label className='form-label' htmlFor='instalacionBase'>Instalación Base</label>
-                                <input id='instalacionBase' name='instalacionBase' placeholder='1000000' type='number' className='form-control' value={instalacionBase} onChange={(e) => setInstalacionBase(e.target.value)}></input>
+                                <input id='instalacionBase' name='instalacionBase' placeholder='1000000' type='number' className='form-control' value={instalacionBase} onChange={(e) => setInstalacionBase(e.target.value)} onFocus={() => setInstalacionBase("")}></input>
                             </div>
 
                             <div className='col-lg-6'>
                                 <label className='form-label' htmlFor='pesoEnvio'>Peso envío (kg)</label>
-                                <input id='pesoEnvio' name='pesoEnvio' placeholder='1000' type='number' className='form-control' value={pesoEnvio} onChange={(e) => setPesoEnvio(e.target.value)}></input>
+                                <input id='pesoEnvio' name='pesoEnvio' placeholder='1000' type='number' className='form-control' value={pesoEnvio} onChange={(e) => setPesoEnvio(e.target.value)} onFocus={() => setPesoEnvio("")}></input>
 
                             </div>
                         </div>
@@ -361,7 +361,7 @@ function CalculadoraPrincipal() {
                             <tr>
 
                                 <td>Subsidio</td>
-                                <td>$ {montoSubsidio.toLocaleString()}</td>
+                                <td>-$ {montoSubsidio.toLocaleString()}</td>
                             </tr>
 
                             <tr>
@@ -392,7 +392,7 @@ function CalculadoraPrincipal() {
                             <tr>
 
                                 <td>Pie</td>
-                                <td>$ {montoPie.toLocaleString()}</td>
+                                <td>-$ {montoPie.toLocaleString()}</td>
 
                             </tr>
                             <tr>
