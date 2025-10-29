@@ -21,7 +21,8 @@ function Hero() {
                         <p className="text-secondary">Dimensiona tu sistema, conoce el costo estimado y solicita asesoría en minutos. La DEMO te guía con valores referenciales.</p>
                         <div className="d-flex gap-2">
                             <Button variant="primary" href="#demo-calculadora">Ver DEMO</Button>
-                            <Button variant="outline-secondary" href="/catalogo-helioandes.pdf" target="_blank">Descargar catálogo</Button>
+                            <Button as="a" href="/assets/docs/catalogo_HelioAndes_1.pdf"download      variant="outline-secondary">Descargar catálogo</Button>
+
                         </div>
                     </Col>
 
