@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 import Table from 'react-bootstrap/Table';
 
 
@@ -45,8 +46,6 @@ function CalculadoraPrincipal() {
     const valorCantidadPlanPago = cantidadPlanPago[Number(planPago)] || 0;
 
     const [tipoPie, setTipoPie] = useState("");
-    const cantidadTipoPie = { 1: 1, 2: 6 };
-    const valorTipoPie = cantidadTipoPie[Number(tipoPie)] || 0;
 
     const [valorPie, setValorPie] = useState(0);
 
@@ -56,15 +55,15 @@ function CalculadoraPrincipal() {
     const subtotalEquipos = ((parseInt(valorPanelSolar) * parseInt(cantidadPaneles)) + parseInt(inversorPrecio) + (parseInt(bateriaPrecio) * parseInt(cantidadBaterias)) + parseInt(estrucCableado))
     const recargoTecho = subtotalEquipos * valorTipoTecho
     const montoSubsidio = subtotalEquipos * valorSubsidio
-    const instalacionFinal = (parseInt(instalacionBase) + (subtotalEquipos*valorComplejidadInstalacion))
+    const instalacionFinal = (parseInt(instalacionBase) + (subtotalEquipos * valorComplejidadInstalacion))
     const montoIva = (subtotalEquipos + recargoTecho - montoSubsidio + instalacionFinal) * 0.19
-    const montoEnvio = (valorRegion + parseInt(pesoEnvio*700))*valorMetodoEnvio
+    const montoEnvio = (valorRegion + parseInt(pesoEnvio * 700)) * valorMetodoEnvio
     const montoGarantia = subtotalEquipos * valorGarantia
-    const totalAnteFinan = montoIva + montoEnvio + montoGarantia    
-    const montoPie = 0  
-    const montoInteresTotal = (totalAnteFinan - montoPie)*valorPlanPago
-    const montoCuota = montoInteresTotal/valorCantidadPlanPago
-    const total = totalAnteFinan + montoInteresTotal
+    const totalAnteFinan = (subtotalEquipos + recargoTecho - montoSubsidio + instalacionFinal) + montoIva + montoEnvio + montoGarantia
+    const montoPie = tipoPie == 1? totalAnteFinan * (valorPie/100) : tipoPie == 2? valorPie : 0;
+    const montoInteresTotal = (totalAnteFinan - montoPie) * valorPlanPago
+    const montoCuota = parseInt((montoInteresTotal+(totalAnteFinan - montoPie) )/ valorCantidadPlanPago)
+    const total = totalAnteFinan - montoPie + montoInteresTotal
 
     return (
         <div className='row justify-content-center'>
