@@ -3,13 +3,17 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass, faScrewdriverWrench, faCheck, faToolbox } from '@fortawesome/free-solid-svg-icons';
+
 
 const items = [
-    { title: 'Estudio energético', text: 'Análisis de consumo y propuesta ajustada a tu perfil.', icon: '🔎' },
-    { title: 'Instalación certificada', text: 'Ejecutada por personal acreditado y normativa vigente.', icon: '🛠️' },
-    { title: 'Monitoreo', text: 'Seguimiento de rendimiento y alertas preventivas.', icon: '📈' },
-    { title: 'Mantención', text: 'Planes periódicos para extender la vida del sistema.', icon: '🧰' },
+    { title: 'Estudio energético', text: 'Análisis de consumo y propuesta ajustada a tu perfil.', icon: <FontAwesomeIcon icon={faMagnifyingGlass} size="2x" /> },
+    { title: 'Instalación certificada', text: 'Ejecutada por personal acreditado y normativa vigente.', icon: <FontAwesomeIcon icon={faScrewdriverWrench} size="2x" /> },
+    { title: 'Monitoreo', text: 'Seguimiento de rendimiento y alertas preventivas.', icon: <FontAwesomeIcon icon={faCheck} size="2x" /> },
+    { title: 'Mantención', text: 'Planes periódicos para extender la vida del sistema.', icon: <FontAwesomeIcon icon={faToolbox} size="2x" /> },
 ];
+
 
 function Servicios() {
     return (

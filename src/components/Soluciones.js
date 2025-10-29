@@ -3,22 +3,25 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse, faBuilding, faBatteryHalf } from '@fortawesome/free-solid-svg-icons';
+
 
 
 function Soluciones() {
     const soluciones = [
         {
-            icon: '🏠',
+            icon: <FontAwesomeIcon icon={faHouse} size="2x" />,
             title: 'Hogar 3–5 kW',
             desc: 'Balance ideal entre costo y ahorro mensual.',
         },
         {
-            icon: '🏢',
+            icon: <FontAwesomeIcon icon={faBuilding} size="2x" />,
             title: 'PyME 10–20 kW',
             desc: 'Para operación diurna con buena irradiación.',
         },
         {
-            icon: '🔋',
+            icon: <FontAwesomeIcon icon={faBatteryHalf} size="2x" />,
             title: 'Off-grid con baterías',
             desc: 'Autonomía en zonas sin red eléctrica.',
         },
@@ -26,9 +29,9 @@ function Soluciones() {
 
     return (
         <section id="soluciones" className="py-5 soluciones-section">
-            <Container>               
+            <Container>
                 <Row className="align-items-center mb-4">
-                    
+
                     <Col xs={12} md={6} className='text-start'>
                         <Col xs={12} md={6}>
                         </Col>
@@ -45,7 +48,7 @@ function Soluciones() {
                         <Col key={i}>
                             <Card className="h-100 shadow-sm border-0 soluciones-card">
                                 <Card.Body>
-                                    <div className="icon-pill mb-3">{s.icon}</div>
+                                    <div className="icon-wrapper mb-3">{s.icon}</div>
                                     <Card.Title className="fw-semibold mb-1">{s.title}</Card.Title>
                                     <Card.Text className="text-muted mb-0">{s.desc}</Card.Text>
                                 </Card.Body>
@@ -53,6 +56,7 @@ function Soluciones() {
                         </Col>
                     ))}
                 </Row>
+
             </Container>
         </section>
     );

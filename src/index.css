@@ -49,5 +49,16 @@ code {
   font-weight: 500;
   font-size: 0.9rem;
 }
+.icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;         /* tamaño caja */
+  height: 48px;
+  border-radius: 12px; /* borde redondeado */
+  background-color: #A6D6D6;  /* mismo tono mockup */
+  color: #1B4B5A;      /* color ícono */
+}
+
 
 
